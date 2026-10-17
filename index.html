@@ -1,0 +1,990 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100817">
+<meta name="description" content="هدية حب خاصة من محمد إلى نغم">
+<title>محمد ♥ نغم | حكايتنا</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap');
+
+:root {
+  --bg: #100817;
+  --pink: #ff83b7;
+  --light: #ffe2f0;
+  --purple: #b58aff;
+  --muted: #d8c3dc;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  color: #fff0f7;
+  background:
+    radial-gradient(ellipse at 50% 0%, #492047 0%, transparent 50%),
+    linear-gradient(155deg, #100817, #1b0c29 55%, #090711);
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 4px;
+}
+
+#sky {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px #ffbce1, 0 0 16px #b58aff;
+  animation: twinkle var(--duration, 2s) ease-in-out infinite alternate;
+}
+
+.falling {
+  position: absolute;
+  top: -40px;
+  animation: fall var(--duration, 8s) linear forwards;
+  opacity: .75;
+  filter: drop-shadow(0 0 7px #ff5fa7);
+}
+
+@keyframes twinkle {
+  from { opacity: .15; transform: scale(.65); }
+  to { opacity: 1; transform: scale(1.35); }
+}
+
+@keyframes fall {
+  0% { transform: translate3d(0, -5vh, 0) rotate(0); opacity: 0; }
+  10% { opacity: .8; }
+  90% { opacity: .65; }
+  100% { transform: translate3d(var(--drift), 110vh, 0) rotate(360deg); opacity: 0; }
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 620px;
+  height: 100%;
+  height: 100dvh;
+  margin: auto;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 20px 100px;
+  text-align: center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(35px) scale(.98);
+  transition: opacity .45s ease, transform .45s ease, visibility .45s;
+}
+
+.scene.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+}
+
+.scene-content {
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  animation: contentIn .65s both;
+}
+
+.scene.active .scene-content {
+  animation: contentIn .65s both;
+}
+
+@keyframes contentIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  color: var(--pink);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+h1, h2 {
+  line-height: 1.6;
+  text-shadow: 0 0 25px #ff6eaf25;
+}
+
+h1 {
+  font-size: clamp(29px, 8vw, 43px);
+}
+
+h2 {
+  font-size: clamp(25px, 6vw, 34px);
+  margin-bottom: 8px;
+}
+
+p {
+  color: #e6d4e8;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.glow {
+  color: #ffacd1;
+  background: linear-gradient(120deg, #fff, #ff9dca, #c7a3ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heart {
+  font-size: 67px;
+  display: inline-block;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 22px #ff4e9d88);
+  animation: heartbeat 1.8s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+}
+
+.section-icon {
+  font-size: 38px;
+  margin-bottom: 7px;
+}
+
+.glass {
+  padding: 20px;
+  border-radius: 24px;
+  border: 1px solid #ffb9df2c;
+  background: linear-gradient(145deg, #ffffff0d, #ffffff05);
+  box-shadow: 0 15px 45px #00000025, inset 0 0 30px #ffb2d008;
+  backdrop-filter: blur(12px);
+}
+
+.primary, .secondary {
+  min-height: 46px;
+  padding: 11px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.primary {
+  border: 0;
+  color: #2a1024;
+  font-weight: 800;
+  background: linear-gradient(120deg, #ffacd1, #ff75b4, #d2a7ff);
+  box-shadow: 0 0 25px #ff75b433;
+}
+
+.secondary {
+  color: #ffe5f4;
+  background: #ffffff0c;
+  border: 1px solid #ffb8df44;
+}
+
+.primary:active, .secondary:active {
+  transform: scale(.96);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.small {
+  font-size: 11px;
+  color: #cbb2cc;
+  margin-top: 12px;
+}
+
+.counter {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.timebox {
+  padding: 12px 5px;
+  border-radius: 15px;
+  background: #ff9dca0c;
+  border: 1px solid #ff9dca22;
+}
+
+.timebox strong {
+  display: block;
+  font-size: 27px;
+  color: var(--pink);
+}
+
+.timebox span {
+  color: #d8bed4;
+  font-size: 12px;
+}
+
+.cards {
+  display: grid;
+  gap: 11px;
+  margin-top: 17px;
+}
+
+.promise, .secret {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ffb7d92e;
+  border-radius: 17px;
+  background: #ffffff08;
+  color: #fff0f7;
+  text-align: right;
+  transition: background .25s, border-color .25s;
+}
+
+.promise strong, .secret strong {
+  display: block;
+  color: var(--pink);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.promise .hint {
+  color: #bda8c4;
+  font-size: 11px;
+}
+
+.promise .answer, .secret .answer {
+  display: none;
+  color: #f7e5f0;
+  margin-top: 9px;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.promise.open, .secret.open {
+  background: #ff7cb419;
+  border-color: #ffacd155;
+}
+
+.promise.open .answer, .secret.open .answer {
+  display: block;
+  animation: contentIn .35s both;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid #ffaddd44;
+  background: #28152d;
+}
+
+.gallery img:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.song-box {
+  margin-top: 15px;
+}
+
+.disc {
+  display: inline-block;
+  font-size: 64px;
+  margin: 10px;
+}
+
+.disc.playing {
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.letter {
+  font-family: 'Amiri', serif;
+  font-size: 19px;
+  line-height: 2;
+  color: #ffe4f2;
+}
+
+/* إضافة تاريخ بداية الحكاية فوق العداد */
+.story-date {
+  font-family: 'Amiri', serif;
+  font-size: clamp(21px, 5.5vw, 27px);
+  font-weight: 700;
+  color: var(--light);
+  margin: 0 auto 8px;
+  text-shadow: 0 0 18px #ff83b766;
+  letter-spacing: .5px;
+}
+
+.story-date::before,
+.story-date::after {
+  content: " ✦ ";
+  color: var(--pink);
+  font-size: 16px;
+}
+
+#nav {
+  position: fixed;
+  z-index: 5;
+  bottom: max(10px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(95%, 500px);
+  display: flex;
+  justify-content: space-around;
+  gap: 3px;
+  padding: 7px;
+  background: #1a0d23eF;
+  border: 1px solid #ffb8df30;
+  border-radius: 23px;
+  backdrop-filter: blur(18px);
+}
+
+.nav-btn {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 1px;
+  color: #d8c1da;
+  background: transparent;
+  border: 0;
+  border-radius: 14px;
+  font-size: 10px;
+}
+
+.nav-btn span {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.nav-btn.active {
+  color: #ffacd1;
+  background: #ffacd116;
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 3px;
+  background: #ffffff10;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #ff80ba, #b98bff);
+  transition: width .35s;
+}
+
+#toast {
+  position: fixed;
+  z-index: 20;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  opacity: 0;
+  background: #31152f;
+  border: 1px solid #ffacd155;
+  padding: 10px 16px;
+  border-radius: 30px;
+  color: white;
+  transition: .3s;
+  pointer-events: none;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-height: 690px) {
+  .scene { padding-top: 17px; padding-bottom: 90px; }
+  .heart { font-size: 49px; margin-bottom: 5px; }
+  .section-icon { font-size: 29px; }
+  .glass { padding: 14px; }
+  .cards { gap: 7px; margin-top: 11px; }
+  .promise, .secret { padding: 10px 12px; }
+  .gallery img { height: 100px; }
+  .actions { margin-top: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="sky" aria-hidden="true"></div>
+<div class="progress"><div id="progressFill"></div></div>
+
+<main id="app">
+
+  <!-- 0: شاشة البداية -->
+  <section class="scene active" data-title="البداية">
+    <div class="scene-content">
+      <div class="heart">💗</div>
+      <div class="eyebrow">A LITTLE SURPRISE FOR YOU</div>
+      <h1 class="glow">هدية صغيرة ليكي يا نغم</h1>
+      <p style="margin-top:12px">
+        مش هدية عادية… دي حتة صغيرة من قلبي،
+        عملتها مخصوص عشانك.
+      </p>
+      <div class="actions">
+        <button class="primary" onclick="openGift()">اكتشفي الهدية ✨</button>
+      </div>
+      <p class="small">المفاجأة ليكي إنتِ بس ❤️</p>
+    </div>
+  </section>
+
+  <!-- 1: الترحيب -->
+  <section class="scene" data-title="حكايتنا">
+    <div class="scene-content">
+      <div class="section-icon">🌙</div>
+      <div class="eyebrow">OUR LITTLE UNIVERSE</div>
+      <h2>أهلًا بيكي في <span class="glow">حكايتنا</span></h2>
+      <div class="glass">
+        <p>
+          محمد ونغم… اسمين، وكل اسم فيهم ليه حكاية.
+          وهنا هتلاقي شوية حاجات صغيرة بتقول كلام
+          ساعات القلب بيبقى مش عارف يقوله.
+        </p>
+      </div>
+      <div class="actions">
+        <button class="primary" onclick="goTo(2)">يلا نبدأ حكايتنا 💞</button>
+        <button class="secondary" onclick="goTo(0)">رجوع</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: عداد الوقت -->
+  <section class="scene" data-title="العداد">
+    <div class="scene-content">
+      <div class="section-icon">⏳</div>
+      <div class="eyebrow">EVERY SECOND MATTERS</div>
+
+      <div class="story-date">22 أغسطس 2026</div>
+
+      <h2>حكايتنا بقالها</h2>
+      <p>كل لحظة ليها ذكرى… وكل يوم ليه مكانه.</p>
+      <div class="glass">
+        <div class="counter">
+          <div class="timebox"><strong id="days">0</strong><span>يوم</span></div>
+          <div class="timebox"><strong id="hours">0</strong><span>ساعة</span></div>
+          <div class="timebox"><strong id="minutes">0</strong><span>دقيقة</span></div>
+          <div class="timebox"><strong id="seconds">0</strong><span>ثانية</span></div>
+        </div>
+      </div>
+      <p class="small">اللحظات الحلوة بتفضل جوانا. ❤️</p>
+      <div class="actions">
+        <button class="primary" onclick="goTo(3)">شوفي وعودي ليكي 💌</button>
+        <button class="secondary" onclick="goTo(1)">السابق</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: الوعود -->
+  <section class="scene" data-title="وعودي">
+    <div class="scene-content">
+      <div class="section-icon">🤍</div>
+      <div class="eyebrow">MY PROMISES TO YOU</div>
+      <h2>وعودي ليكي</h2>
+      <p>اضغطي على كل وعد عشان تكتشفي اللي جواه.</p>
+
+      <div class="cards">
+        <button class="promise" onclick="toggleCard(this)">
+          <strong>♡ وعد رقم ١</strong>
+          <span class="hint">اضغطي عشان تفتحي الوعد</span>
+          <span class="answer">أوعدك إني أسمعك وأحاول أفهمك حتى في الأيام الصعبة، لأن كلامك ومشاعرك مهمين.</span>
+        </button>
+
+        <button class="promise" onclick="toggleCard(this)">
+          <strong>♡ وعد رقم ٢</strong>
+          <span class="hint">اضغطي عشان تفتحي الوعد</span>
+          <span class="answer">أوعدك إني أقدّر وجودك، وأحاول أعبّرلك عن اللي جوايا بدل ما أسيبك تحتاري.</span>
+        </button>
+
+        <button class="promise" onclick="toggleCard(this)">
+          <strong>♡ وعد رقم ٣</strong>
+          <span class="hint">اضغطي عشان تفتحي الوعد</span>
+          <span class="answer">أوعدك إننا نحاول نحل خلافاتنا بالكلام والاحترام، ونفتكر دايمًا إننا في نفس الفريق.</span>
+        </button>
+      </div>
+
+      <div class="actions">
+        <button class="primary" onclick="goTo(4)">رسائل مخبية ليكي 👀</button>
+        <button class="secondary" onclick="goTo(2)">السابق</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: الرسائل السرية -->
+  <section class="scene" data-title="أسراري">
+    <div class="scene-content">
+      <div class="section-icon">💌</div>
+      <div class="eyebrow">SECRET MESSAGES</div>
+      <h2>فيه كلام مخصوص ليكي</h2>
+      <p>اختاري رسالة واضغطي عليها عشان تفتحيها.</p>
+
+      <div class="cards">
+        <button class="secret" onclick="toggleCard(this)">
+          <strong>🔐 افتحيني لما تشتاقيلي</strong>
+          <span class="answer">حتى لو المسافات بعدتنا شوية، افتكري إن فيه لحظات حلوة تستاهل نفتكرها ونحافظ عليها. ❤️</span>
+        </button>
+
+        <button class="secret" onclick="toggleCard(this)">
+          <strong>🔐 افتحيني لما تزعلي</strong>
+          <span class="answer">مش لازم تبقي كويسة طول الوقت، ومش لازم تخبي زعلك. اتكلمي وعبّري عن اللي جواكي، لأن مشاعرك تستاهل تتسمع. 🤍</span>
+        </button>
+
+        <button class="secret" onclick="toggleCard(this)">
+          <strong>🔐 افتحيني من غير سبب</strong>
+          <span class="answer">عارفة إيه الحلو في الرسالة دي؟ إنك فتحتيها، ودي فرصة أقولك إنك غالية عندي يا نغم. 💗</span>
+        </button>
+      </div>
+
+      <div class="actions">
+        <button class="primary" onclick="goTo(5)">تعالي نشوف صورنا 📸</button>
+        <button class="secondary" onclick="goTo(3)">السابق</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5: الصور -->
+  <section class="scene" data-title="صورنا">
+    <div class="scene-content">
+      <div class="section-icon">📸</div>
+      <div class="eyebrow">LITTLE MEMORIES</div>
+      <h2>صور وذكريات</h2>
+      <p>الاغنيه اللي كل ما باسمعها بفتكرك بيها💗.</p>
+
+      <div class="gallery">
+        <img src="./photo1.jpg" alt="ذكرياتنا الأولى" onerror="this.style.display='none'">
+        <img src="./photo2.jpg" alt="لحظة حلوة" onerror="this.style.display='none'">
+        <img src="./photo3.jpg" alt="ذكرى من حكايتنا" onerror="this.style.display='none'">
+      </div>
+
+      <p class="small"></p>
+
+      <div class="actions">
+        <button class="primary" onclick="goTo(6)">فيه أغنية كمان 🎶</button>
+        <button class="secondary" onclick="goTo(4)">السابق</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6: الأغنية الثانية -->
+  <section class="scene" data-title="أغنيتنا">
+    <div class="scene-content">
+      <div class="section-icon">🎶</div>
+      <div class="eyebrow">OUR SONG</div>
+      <h2>شغّلي أغنيتنا</h2>
+
+      <div class="glass song-box">
+        <div class="disc" id="disc">💿</div>
+        <p>أغنية صغيرة… وذكريات كتير.</p>
+        <audio id="song" src="./song.mp3" preload="metadata" loop></audio>
+
+        <div class="actions">
+          <button class="primary" id="musicBtn" onclick="toggleMusic()">▶ شغّلي الأغنية</button>
+        </div>
+      </div>
+
+      <p class="small">.</p>
+
+      <div class="actions">
+        <button class="primary" onclick="goTo(7)">آخر رسالة ليكي 💗</button>
+        <button class="secondary" onclick="goTo(5)">السابق</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7: الرسالة الأخيرة -->
+  <section class="scene" data-title="رسالة ليكي">
+    <div class="scene-content">
+      <div class="heart">💖</div>
+      <div class="eyebrow">FROM MOHAMED TO NAGHAM</div>
+      <h2 class="glow">إلى نغم…</h2>
+
+      <div class="glass">
+        <p class="letter">
+          يا نغم،<br>
+          عملتلك المكان الصغير ده عشان يبقى فيه شوية
+          من الكلام اللي نفسي أقولهولك.<br>
+          مش لازم كل يوم يبقى مثالي، ولا كل لحظة
+          تبقى من غير مشاكل… المهم إننا نعرف نتكلم،
+          ونفهم بعض، ونحترم بعض.<br>
+          أتمنى كل مرة تفتحي فيها الموقع ده تبتسمي،
+          وتفتكري إن فيه حد أخد من وقته عشان يعملك
+          حاجة مخصوص ليكي.<br>
+          <span class="glow">من محمد… بكل الحب ❤️</span>
+        </p>
+      </div>
+
+      <div class="actions">
+        <button class="primary" onclick="makeHearts()">ابعتيلي قلب ❤️</button>
+        <button class="secondary" onclick="goTo(0)">نبدأ الحكاية من الأول ↺</button>
+      </div>
+
+      <p class="small">نهاية الصفحة… مش نهاية الحكاية ✨</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- شريط التنقل -->
+<nav id="nav" aria-label="التنقل بين الأقسام">
+  <button class="nav-btn active" data-index="0" onclick="goTo(0)">
+    <span>🎁</span>البداية
+  </button>
+  <button class="nav-btn" data-index="2" onclick="goTo(2)">
+    <span>⏳</span>العداد
+  </button>
+  <button class="nav-btn" data-index="3" onclick="goTo(3)">
+    <span>🤍</span>وعودي
+  </button>
+  <button class="nav-btn" data-index="4" onclick="goTo(4)">
+    <span>💌</span>رسائلي
+  </button>
+  <button class="nav-btn" data-index="7" onclick="goTo(7)">
+    <span>💖</span>ليكي
+  </button>
+</nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- أغنية البداية: لازم الملف يكون بجانب index.html -->
+<audio id="introSong" src="./intro.mp3" preload="auto" loop></audio>
+
+<script>
+/* ==================================
+   إعدادات الموقع
+================================== */
+
+const START_DATE = new Date('2026-08-22T00:00:00');
+
+/* ==================================
+   التنقل بين المشاهد
+================================== */
+
+const scenes = Array.from(document.querySelectorAll('.scene'));
+const navButtons = Array.from(document.querySelectorAll('.nav-btn'));
+const progressFill = document.getElementById('progressFill');
+
+let currentScene = 0;
+let toastTimer;
+
+const introSong = document.getElementById('introSong');
+const song = document.getElementById('song');
+const musicBtn = document.getElementById('musicBtn');
+const disc = document.getElementById('disc');
+
+/* تشغيل أغنية البداية عند الضغط على اكتشفي الهدية */
+function openGift() {
+  goTo(1);
+
+  // محاولة التشغيل مباشرة من ضغطة المستخدم
+  introSong.play().catch(() => {
+    showToast('تأكدي إن ملف intro.mp3 موجود جنب index.html');
+  });
+}
+
+function goTo(index) {
+  if (index < 0 || index >= scenes.length) return;
+
+  scenes.forEach((scene, i) => {
+    scene.classList.toggle('active', i === index);
+    if (i === index) scene.scrollTop = 0;
+  });
+
+  currentScene = index;
+
+  navButtons.forEach(button => {
+    const selected = Number(button.dataset.index) === index;
+    button.classList.toggle('active', selected);
+  });
+
+  progressFill.style.width =
+    ((index + 1) / scenes.length * 100) + '%';
+
+  if (index === 0) {
+    navButtons.forEach(b => b.classList.remove('active'));
+    navButtons[0].classList.add('active');
+
+    // إيقاف الأغنيتين عند العودة للبداية
+    introSong.pause();
+    song.pause();
+    updateMusicUI();
+  }
+
+  // إيقاف أغنية البداية قبل فتح قسم الأغنية الثانية
+  if (index === 6) {
+    introSong.pause();
+  }
+
+  if (index === 1) {
+    showToast('أهلًا بيكي في حكايتنا يا نغم 💗');
+  }
+}
+
+/* ==================================
+   الرسائل والوعود القابلة للفتح
+================================== */
+
+function toggleCard(card) {
+  const opening = !card.classList.contains('open');
+  card.classList.toggle('open', opening);
+
+  if (opening) {
+    showToast('رسالة صغيرة من القلب ❤️');
+  }
+}
+
+/* ==================================
+   عداد الأيام والساعات
+================================== */
+
+function updateCounter() {
+  const now = new Date();
+  let difference = now.getTime() - START_DATE.getTime();
+
+  if (difference < 0) difference = 0;
+
+  const totalSeconds = Math.floor(difference / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  document.getElementById('days').textContent = days;
+  document.getElementById('hours').textContent = hours;
+  document.getElementById('minutes').textContent = minutes;
+  document.getElementById('seconds').textContent = seconds;
+}
+
+updateCounter();
+setInterval(updateCounter, 1000);
+
+/* ==================================
+   الموسيقى
+================================== */
+
+async function toggleMusic() {
+  if (song.paused) {
+    try {
+      // منع تشغيل أغنية البداية مع الأغنية الثانية
+      introSong.pause();
+
+      await song.play();
+      updateMusicUI();
+    } catch (error) {
+      showToast('تأكدي إن ملف song.mp3 موجود جنب index.html');
+    }
+  } else {
+    song.pause();
+    updateMusicUI();
+  }
+}
+
+function updateMusicUI() {
+  if (song.paused) {
+    musicBtn.textContent = '▶ شغّلي الأغنية';
+    disc.classList.remove('playing');
+  } else {
+    musicBtn.textContent = '❚❚ إيقاف مؤقت';
+    disc.classList.add('playing');
+  }
+}
+
+song.addEventListener('play', updateMusicUI);
+song.addEventListener('pause', updateMusicUI);
+
+song.addEventListener('ended', () => {
+  updateMusicUI();
+});
+
+song.addEventListener('error', () => {
+  updateMusicUI();
+  showToast('ملف song.mp3 مش موجود أو مش بصيغة صوت مدعومة');
+});
+
+introSong.addEventListener('error', () => {
+  // رسالة الخطأ تظهر عند محاولة تشغيل أغنية البداية
+});
+
+/* ==================================
+   النجوم في الخلفية
+================================== */
+
+const sky = document.getElementById('sky');
+
+for (let i = 0; i < 65; i++) {
+  const star = document.createElement('i');
+  star.className = 'star';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+
+  const size = Math.random() * 2.5 + 1;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.setProperty('--duration', (1.2 + Math.random() * 3) + 's');
+  star.style.animationDelay = (Math.random() * 4) + 's';
+
+  sky.appendChild(star);
+}
+
+/* ==================================
+   القلوب والنجوم المتساقطة
+================================== */
+
+const fallingSymbols = ['♡', '♥', '✦', '✧', '💗'];
+
+function createFalling(symbol) {
+  const item = document.createElement('span');
+  item.className = 'falling';
+  item.textContent = symbol || fallingSymbols[
+    Math.floor(Math.random() * fallingSymbols.length)
+  ];
+
+  item.style.left = Math.random() * 100 + '%';
+  item.style.fontSize = (12 + Math.random() * 16) + 'px';
+  item.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+  item.style.setProperty('--duration', (6 + Math.random() * 7) + 's');
+
+  sky.appendChild(item);
+
+  setTimeout(() => item.remove(), 14000);
+}
+
+setInterval(() => createFalling(), 650);
+
+/* ==================================
+   تأثير القلوب عند الضغط
+================================== */
+
+function makeHearts() {
+  for (let i = 0; i < 18; i++) {
+    setTimeout(() => {
+      createFalling(['💗', '💕', '♥', '💖'][Math.floor(Math.random() * 4)]);
+    }, i * 90);
+  }
+
+  showToast('وصل القلب يا نغم ❤️');
+}
+
+/* ==================================
+   رسائل صغيرة
+================================== */
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2300);
+}
+
+/* ==================================
+   السحب يمين وشمال للتنقل
+================================== */
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.getElementById('app').addEventListener('touchstart', event => {
+  if (!event.touches.length) return;
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}, { passive: true });
+
+document.getElementById('app').addEventListener('touchend', event => {
+  if (!event.changedTouches.length) return;
+
+  const deltaX = event.changedTouches[0].clientX - touchStartX;
+  const deltaY = event.changedTouches[0].clientY - touchStartY;
+
+  if (Math.abs(deltaX) < 90 || Math.abs(deltaX) < Math.abs(deltaY) * 1.3) {
+    return;
+  }
+
+  if (deltaX < 0 && currentScene < scenes.length - 1) {
+    goTo(currentScene + 1);
+  } else if (deltaX > 0 && currentScene > 0) {
+    goTo(currentScene - 1);
+  }
+}, { passive: true });
+
+/* ==================================
+   بدء الموقع
+================================== */
+
+goTo(0);
+</script>
+</body>
+</html>
